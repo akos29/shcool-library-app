@@ -2,7 +2,7 @@
 
 <div align="center">
   <!-- You are encouraged to replace this logo with your own! Otherwise you can also remove it. -->
-  <img src="murple_logo.png" alt="logo" width="140"  height="auto" />
+  <img src="https://safari-ict.com/wp-content/uploads/elementor/thumbs/safari-logo-jpeg-e1586270537522-p2m92e5sbdvatp5jaesli97zyw4841isg30ay92w58.png" alt="logo" width="140"  height="auto" />
   <br/>
 
   <h3><b>Microverse README Template</b></h3>
