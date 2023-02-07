@@ -2,10 +2,11 @@ require './person'
 require './student'
 require './teacher'
 
-person1 = Person.new(54, 'Kibre', parent_permission: false)
-person2 = Person.new(17, 'Abebe', parent_permission: true)
+person1 = Person.new(54, 'kibrewossen yitbarek', parent_permission: false)
+person2 = Person.new(17, 'abebe kebede', parent_permission: true)
 
-p person1.can_use_services?
+capPer1= CapitalizeDecorator.new( person1)
+p capPer1.correct_name
 p person2.can_use_services?
 
 student = Student.new(age: 27, classroom: 'class B')
