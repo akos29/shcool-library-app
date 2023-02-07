@@ -4,8 +4,7 @@ class Nameable
   end
 end
 
-
-class Person
+class Person < Nameable
   attr_reader :id
   attr_accessor :name, :age
 
@@ -24,9 +23,25 @@ class Person
     end
   end
 
+  def correct_name
+    @name
+  end
+
   private
 
   def of_age?
     @age >= 18
+  end
+end
+
+class Decorator < Nameable
+  attr_accessor :nameable
+
+  def initialize(nameable)
+    @nameable = nameable
+  end
+
+  def correct_name
+    @nameable.correct_name
   end
 end
