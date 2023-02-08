@@ -25,7 +25,7 @@ book = Book.new(title: 'Animal Farm', author: 'George Orwell')
 p book1 = Book.new(title: 'The Idiot', author: 'Fyodor Dostoyevsky')
 
 Rental.new(date: '2017-12-22', person: person, book: book)
-Rental.new(date: '2017-12-22',person: person, book: book1)
+Rental.new(date: '2017-12-22', person: person, book: book1)
 
 p person.rentals.count
 p person.rentals.map(&:date)
