@@ -1,12 +1,8 @@
-class Nameable
-  def correct_name
-    raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
-  end
-end
+require './nameable'
 
 class Person < Nameable
-  attr_reader :id, :rentals
-  attr_accessor :name, :age
+  attr_reader :id
+  attr_accessor :name, :age, :rentals
 
   def initialize(age, name = 'Unknown', parent_permission: true)
     @id = Random.rand(1..1000)
@@ -33,6 +29,11 @@ class Person < Nameable
 
   def of_age?
     @age >= 18
+  end
+
+  def add_rental(date, book)
+    rental = Rental.new(date, book, self)
+    @rentals << rental
   end
 end
 
