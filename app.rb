@@ -22,7 +22,7 @@ class App
       puts 'There is no book added'
     else
       @books.each_with_index do |book, index|
-        puts "(#{index+1})  Title: #{book.title}, Title: #{book.author}" 
+        puts "(#{index + 1})  Title: #{book.title}, Title: #{book.author}"
       end
     end
   end
@@ -33,9 +33,9 @@ class App
     else
       @people.each_with_index do |person, index|
         if person.is_a?(Student)
-          puts "(#{index+1}): [Student] ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
+          puts "(#{index + 1}): [Student] ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
         else
-          puts "(#{index+1}): [Teacher] ID: #{person.id}, Name #{person.name}, Age: #{person.age}"
+          puts "(#{index + 1}): [Teacher] ID: #{person.id}, Name #{person.name}, Age: #{person.age}"
         end
       end
     end
@@ -72,16 +72,29 @@ class App
 
   def create_a_rental
     puts 'Select a book from the following list by number'
+    list_all_books
     # list all books
-    book_choice = gets.chomp
-    person_choice = user_input('Select a person from the following list by number (not id): ')
-
+    book_choice = user_input('Your selection:   ').to_i
+    book = @books[book_choice - 1]
+    puts book.title
+    puts 'Select a person from the following list by number (not id):'
+    list_all_people
+    person_choice = user_input('Your selection:   ').to_i
+    # person = @people.each_with_index{|_val,index| index==(person_choice-1)}
+    person = @people[person_choice - 1]
+    puts person.name
     date = user_input('Date:    ')
-    @rentals << Rental.new(date: date, person: person_choice, book: book_choice)
+    if book.nil? && person.nil?
+      puts 'Your request cannot be processed'
+    else
+      @rentals << Rental.new(date: date, person: person, book: book)
+      puts 'Rental added sucessfully'
+    end
   end
 
   def list_all_rentals
-    person_id = user_input('ID of person:   ')
+    list_all_people
+    person_id = user_input('ID of person:   ').to_i
     puts 'Rentals: '
     @rentals.each_with_index do |rental, index|
       if rental.person.id == person_id
