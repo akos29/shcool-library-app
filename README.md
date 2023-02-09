@@ -69,7 +69,6 @@ In this project, you will start building your school library app. In this initia
 
 ### Key Features <a name="key-features"></a>
 
-> Describe between 1-3 key features of the application.
 
 - **Run a program using the command line.**
 - **Use Ruby syntax for basic programming operations.**
@@ -86,75 +85,52 @@ In this project, you will start building your school library app. In this initia
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
-
 ## 💻 Getting Started <a name="getting-started"></a>
 
-To get a local copy up and running, follow these steps:
-- Get a copy of the project
-- Come into the project directory
-- Open the project using code editor of your choice
+To get a local copy up and running, follow these steps.
 
 ### Prerequisites
 
-In order to run this project you need:
-
-<!--
-Example command:
-
-```sh
- gem install rails
-```
- -->
+In order to run this project you need the following tools:
+- Ruby installed in your computer
+- IDE(e.g.: Vscode,...)
+- Terminal
 
 ### Setup
 
 Clone this repository to your desired folder:
 
-<!--
-Example commands:
-
 ```sh
-  cd my-folder
-  git clone git@github.com:myaccount/my-project.git
+  git clone https://github.com/akos29/shcool-library-app.git
 ```
---->
 
 ### Install
 
-Install this project with:
-
-<!--
-Example command:
+- Install this project with:
 
 ```sh
-  cd my-project
-  gem install
+  cd shcool-library-app
+
+  bundle install or bundle i
 ```
---->
 
 ### Usage
 
 To run the project, execute the following command:
 
-<!--
-Example command:
-
 ```sh
-  rails server
+  ruby main.rb
+
 ```
---->
 
 ### Run tests
 
 To run tests, run the following command:
 
-<!--
-Example command:
 
 ```sh
-  bin/rails test test/models/article_test.rb
+  rspec spec/
 ```
---->
 
 ### Deployment
 
@@ -208,7 +184,6 @@ Feel free to check the [issues page](../../issues/).
 
 ## ⭐️ Show your support <a name="support"></a>
 
-> Write a message to encourage readers to support your project
 
 If you like this project please add stars!
 
@@ -218,14 +193,12 @@ If you like this project please add stars!
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-> Give credit to everyone who inspired your codebase.
-
 I would like to thank Microverse for learning!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FAQ (optional) -->
-
+<!-- 
 ## ❓ FAQ (OPTIONAL) <a name="faq"></a>
 
 - **[Question_1]**
@@ -236,7 +209,7 @@ I would like to thank Microverse for learning!
 
   - [Answer_2]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 <!-- LICENSE -->
 
