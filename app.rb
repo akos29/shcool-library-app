@@ -8,7 +8,7 @@ require './book'
 class App
   def initialize
     @people = []
-    @book = []
+    @books = []
     @rentals = []
   end
 
@@ -17,7 +17,15 @@ class App
     gets.chomp
   end
 
-  def list_all_books; end
+  def list_all_books
+    if @books.empty?
+      puts 'There is no book added'
+    else
+      @books.each_with_index do |book, index|
+        puts "(#{index+1})  Title: #{book.title}, Title: #{book.author}" 
+      end
+    end
+  end
 
   def list_all_people
     if @people.empty?
@@ -25,9 +33,9 @@ class App
     else
       @people.each_with_index do |person, index|
         if person.is_a?(Student)
-          puts "#{index}: [Student] ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
+          puts "(#{index+1}): [Student] ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
         else
-          puts "#{index}: [Teacher] ID: #{person.id}, Name #{person.name}, Age: #{person.age}"
+          puts "(#{index+1}): [Teacher] ID: #{person.id}, Name #{person.name}, Age: #{person.age}"
         end
       end
     end
@@ -58,7 +66,7 @@ class App
   def create_a_book
     title = user_input('Title:  ')
     author = user_input('Author:  ')
-    @book << Book.new(title: title, author: author)
+    @books << Book.new(title: title, author: author)
     puts 'Book created successfully'
   end
 
