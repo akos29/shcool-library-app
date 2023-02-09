@@ -82,7 +82,7 @@ class App
     person_choice = user_input('Your selection:   ').to_i
     person = @people[person_choice - 1]
     puts person.name
-    date = user_input('Date:    ')
+    date = user_input('Date(YYYY-MM-DD):   ')
     if book.nil? && person.nil?
       puts 'Your request cannot be processed'
     else
@@ -124,7 +124,7 @@ class App
   def run
     puts 'Welcome to School Library App!'
     loop do
-      puts '*' * 50
+      puts '*' * 60
       puts '
           1- List all books
           2- List all people
