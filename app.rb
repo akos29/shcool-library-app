@@ -134,7 +134,7 @@ class App
           6- List all rentals for a given person id
           7- Quit'
 
-      input = user_input('Choose an option: ').to_i
+      input = user_input('Choose an option: ')
 
       break if input == 7
 
