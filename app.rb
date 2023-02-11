@@ -46,8 +46,6 @@ class App
     choice = user_input('[Input the number]:  ')
     case choice.to_i
     when 1
-      # Create a student
-
       age = user_input('Age:   ').to_i
       name = user_input('Name:   ')
       permission = user_input('Has parent permission? [Y/N]:  ')
@@ -60,6 +58,8 @@ class App
       specialization = user_input('Specialization:  ')
       @people << Teacher.new(age: age, name: name, specialization: specialization)
       puts 'Person [Teacher] created successfully'
+    else
+      create_a_person
     end
   end
 
