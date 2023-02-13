@@ -18,27 +18,11 @@ class App
   end
 
   def list_all_books
-    if @books.empty?
-      puts 'There is no book added'
-    else
-      @books.each_with_index do |book, index|
-        puts "(#{index + 1})  Title: #{book.title}, Title: #{book.author}"
-      end
-    end
+    ListBook.new.list_all_books(@books)
   end
 
   def list_all_people
-    if @people.empty?
-      puts 'There is no people added'
-    else
-      @people.each_with_index do |person, index|
-        if person.is_a?(Student)
-          puts "(#{index + 1}): [Student] ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
-        else
-          puts "(#{index + 1}): [Teacher] ID: #{person.id}, Name #{person.name}, Age: #{person.age}"
-        end
-      end
-    end
+    ListPeople.new.list_all_people(@people)
   end
 
   def create_a_person
@@ -139,6 +123,34 @@ class App
       break if input == 7
 
       operation(input)
+    end
+  end
+end
+
+class ListBook
+  def list_all_books(books)
+    if books.empty?
+      puts 'There is no book added'
+    else
+      books.each_with_index do |book, index|
+        puts "(#{index + 1})  Title: #{book.title}, Title: #{book.author}"
+      end
+    end
+  end
+end
+
+class ListPeople
+  def list_all_people(people)
+    if people.empty?
+      puts 'There is no people added'
+    else
+      people.each_with_index do |person, index|
+        if person.is_a?(Student)
+          puts "(#{index + 1}): [Student] ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
+        else
+          puts "(#{index + 1}): [Teacher] ID: #{person.id}, Name #{person.name}, Age: #{person.age}"
+        end
+      end
     end
   end
 end
