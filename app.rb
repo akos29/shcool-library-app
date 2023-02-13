@@ -29,33 +29,8 @@ class App
     CreatePerson.new.create_a_person(@people)
   end
 
-  # def create_a_person
-  #   puts 'Do you want to create a student(1) or a teacher (2)?'
-  #   choice = user_input('[Input the number]:  ')
-  #   case choice.to_i
-  #   when 1
-  #     age = user_input('Age:   ').to_i
-  #     name = user_input('Name:   ')
-  #     permission = user_input('Has parent permission? [Y/N]:  ')
-  #     permitted = %w[y Y].include?(permission)
-  #     @people << Student.new(age: age, name: name, parent_permission: permitted)
-  #     puts 'Person [Student] created successfully'
-  #   when 2
-  #     age = user_input('Age:   ')
-  #     name = user_input('Name:  ')
-  #     specialization = user_input('Specialization:  ')
-  #     @people << Teacher.new(age: age, name: name, specialization: specialization)
-  #     puts 'Person [Teacher] created successfully'
-  #   else
-  #     create_a_person
-  #   end
-  # end
-
   def create_a_book
-    title = user_input('Title:  ')
-    author = user_input('Author:  ')
-    @books << Book.new(title: title, author: author)
-    puts 'Book created successfully'
+    CreateBook.new.create_a_book(@books)
   end
 
   def create_a_rental
@@ -180,5 +155,14 @@ class CreatePerson
     else
       create_a_person
     end
+  end
+end
+
+class CreateBook
+  def create_a_book(books)
+    title = App.new.user_input('Title:  ')
+    author = App.new.user_input('Author:  ')
+    books << Book.new(title: title, author: author)
+    puts 'Book created successfully'
   end
 end
