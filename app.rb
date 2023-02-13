@@ -26,26 +26,30 @@ class App
   end
 
   def create_a_person
-    puts 'Do you want to create a student(1) or a teacher (2)?'
-    choice = user_input('[Input the number]:  ')
-    case choice.to_i
-    when 1
-      age = user_input('Age:   ').to_i
-      name = user_input('Name:   ')
-      permission = user_input('Has parent permission? [Y/N]:  ')
-      permitted = %w[y Y].include?(permission)
-      @people << Student.new(age: age, name: name, parent_permission: permitted)
-      puts 'Person [Student] created successfully'
-    when 2
-      age = user_input('Age:   ')
-      name = user_input('Name:  ')
-      specialization = user_input('Specialization:  ')
-      @people << Teacher.new(age: age, name: name, specialization: specialization)
-      puts 'Person [Teacher] created successfully'
-    else
-      create_a_person
-    end
+    CreatePerson.new.create_a_person(@people)
   end
+
+  # def create_a_person
+  #   puts 'Do you want to create a student(1) or a teacher (2)?'
+  #   choice = user_input('[Input the number]:  ')
+  #   case choice.to_i
+  #   when 1
+  #     age = user_input('Age:   ').to_i
+  #     name = user_input('Name:   ')
+  #     permission = user_input('Has parent permission? [Y/N]:  ')
+  #     permitted = %w[y Y].include?(permission)
+  #     @people << Student.new(age: age, name: name, parent_permission: permitted)
+  #     puts 'Person [Student] created successfully'
+  #   when 2
+  #     age = user_input('Age:   ')
+  #     name = user_input('Name:  ')
+  #     specialization = user_input('Specialization:  ')
+  #     @people << Teacher.new(age: age, name: name, specialization: specialization)
+  #     puts 'Person [Teacher] created successfully'
+  #   else
+  #     create_a_person
+  #   end
+  # end
 
   def create_a_book
     title = user_input('Title:  ')
@@ -151,6 +155,30 @@ class ListPeople
           puts "(#{index + 1}): [Teacher] ID: #{person.id}, Name #{person.name}, Age: #{person.age}"
         end
       end
+    end
+  end
+end
+
+class CreatePerson 
+  def create_a_person(people)
+    puts 'Do you want to create a student(1) or a teacher (2)?'
+    choice = App.new.user_input('[Input the number]:  ')
+    case choice.to_i
+    when 1
+      age = App.new.user_input('Age:   ').to_i
+      name = App.new.user_input('Name:   ')
+      permission = App.new.user_input('Has parent permission? [Y/N]:  ')
+      permitted = %w[y Y].include?(permission)
+      people << Student.new(age: age, name: name, parent_permission: permitted)
+      puts 'Person [Student] created successfully'
+    when 2
+      age = App.new.user_input('Age:   ')
+      name = App.new.user_input('Name:  ')
+      specialization = App.new.user_input('Specialization:  ')
+      people << Teacher.new(age: age, name: name, specialization: specialization)
+      puts 'Person [Teacher] created successfully'
+    else
+      create_a_person
     end
   end
 end
