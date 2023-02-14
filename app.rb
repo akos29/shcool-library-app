@@ -12,13 +12,11 @@ class App
     @rentals = []
   end
 
-  class CreateList
-    def user_input(text)
-      print text
-      gets.chomp
-    end
+  def user_input(text)
+    print text
+    gets.chomp
   end
-
+  
   def list_all_books
     ListBook.new.list_all_books(@books)
   end
@@ -28,15 +26,15 @@ class App
   end
 
   def create_a_person
-    CreateList.new.create_a_person(@people)
+    CreatePerson.new.create_a_person(@people)
   end
 
   def create_a_book
-    CreateList.new.create_a_book(@books)
+    CreateBook.new.create_a_book(@books)
   end
 
   def create_a_rental
-    CreateList.new.create_a_rental(@books, @people, @rentals)
+    CreateRental.new.create_a_rental(@books, @people, @rentals)
   end
 
   def list_all_rentals
@@ -113,6 +111,13 @@ class ListPeople
 end
 
 class CreateList
+  def user_input(text)
+    print text
+    gets.chomp
+  end
+end
+
+class CreatePerson < CreateList
   def create_a_person(people)
     puts 'Do you want to create a student(1) or a teacher (2)?'
     choice = user_input('[Input the number]:  ')
@@ -136,7 +141,7 @@ class CreateList
   end
 end
 
-class CreateList
+class CreateBook < CreateList
   def create_a_book(books)
     title = user_input('Title:  ')
     author = user_input('Author:  ')
@@ -145,7 +150,7 @@ class CreateList
   end
 end
 
-class CreateList
+class CreateRental < CreateList
   def create_a_rental(books, people, rentals)
     puts 'Select a book from the following list by number'
     ListBook.new.list_all_books(books)
