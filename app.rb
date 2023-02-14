@@ -12,9 +12,11 @@ class App
     @rentals = []
   end
 
-  def user_input(text)
-    print text
-    gets.chomp
+  class CreateList
+    def user_input(text)
+      print text
+      gets.chomp
+    end
   end
 
   def list_all_books
@@ -26,15 +28,15 @@ class App
   end
 
   def create_a_person
-    CreatePerson.new.create_a_person(@people)
+    CreateList.new.create_a_person(@people)
   end
 
   def create_a_book
-    CreateBook.new.create_a_book(@books)
+    CreateList.new.create_a_book(@books)
   end
 
   def create_a_rental
-    CreateRental.new.create_a_rental(@books, @people, @rentals)
+    CreateList.new.create_a_rental(@books, @people, @rentals)
   end
 
   def list_all_rentals
@@ -110,22 +112,22 @@ class ListPeople
   end
 end
 
-class CreatePerson 
+class CreateList 
   def create_a_person(people)
     puts 'Do you want to create a student(1) or a teacher (2)?'
-    choice = App.new.user_input('[Input the number]:  ')
+    choice = user_input('[Input the number]:  ')
     case choice.to_i
     when 1
-      age = App.new.user_input('Age:   ').to_i
-      name = App.new.user_input('Name:   ')
-      permission = App.new.user_input('Has parent permission? [Y/N]:  ')
+      age = user_input('Age:   ').to_i
+      name = user_input('Name:   ')
+      permission = user_input('Has parent permission? [Y/N]:  ')
       permitted = %w[y Y].include?(permission)
       people << Student.new(age: age, name: name, parent_permission: permitted)
       puts 'Person [Student] created successfully'
     when 2
-      age = App.new.user_input('Age:   ')
-      name = App.new.user_input('Name:  ')
-      specialization = App.new.user_input('Specialization:  ')
+      age = user_input('Age:   ')
+      name = user_input('Name:  ')
+      specialization = user_input('Specialization:  ')
       people << Teacher.new(age: age, name: name, specialization: specialization)
       puts 'Person [Teacher] created successfully'
     else
@@ -134,28 +136,28 @@ class CreatePerson
   end
 end
 
-class CreateBook
+class CreateList
   def create_a_book(books)
-    title = App.new.user_input('Title:  ')
-    author = App.new.user_input('Author:  ')
+    title = user_input('Title:  ')
+    author = user_input('Author:  ')
     books << Book.new(title: title, author: author)
     puts 'Book created successfully'
   end
 end
 
-class CreateRental
+class CreateList
     def create_a_rental(books, people, rentals)
     puts 'Select a book from the following list by number'
     ListBook.new.list_all_books(books)
-    book_choice = App.new.user_input('Your selection:   ').to_i
+    book_choice = user_input('Your selection:   ').to_i
     book = books[book_choice - 1]
     puts book.title
     puts 'Select a person from the following list by number (not id):'
     ListPeople.new.list_all_people(people)
-    person_choice = App.new.user_input('Your selection:   ').to_i
+    person_choice = user_input('Your selection:   ').to_i
     person = people[person_choice - 1]
     puts person.name
-    date = App.new.user_input('Date(YYYY-MM-DD):   ')
+    date = user_input('Date(YYYY-MM-DD):   ')
     if book.nil? && person.nil?
       puts 'Your request cannot be processed'
     else
@@ -168,7 +170,7 @@ end
 class ListRental
   def list_all_rentals(rentals, people)
     ListPeople.new.list_all_people(people)
-    person_id = App.new.user_input('ID of person:   ').to_i
+    person_id = user_input('ID of person:   ').to_i
     puts 'Rentals: '
     rentals.each_with_index do |rental, index|
       if rental.person.id == person_id
