@@ -1,7 +1,4 @@
 require 'json'
-require 'stringio'
-require './student'
-
 
 module PreservePeople
   def save_people(people)
@@ -37,14 +34,14 @@ module PreservePeople
 
     JSON.parse(File.read(teachers_path)).each do |teacher|
       data << Teacher.new(id: teacher['id'], age: teacher['age'], name: teacher['name'],
-                          parent_permission: teacher['parent_permission'], specialization: teacher['specialization'])
+                          specialization: teacher['specialization'])
     end
 
     JSON.parse(File.read(students_path)).each do |student|
       data << Student.new(id: student['id'], age: student['age'], name: student['name'],
                           parent_permission: student['parent_permission'])
 
-      data
+      pp data
     end
   end
 end
