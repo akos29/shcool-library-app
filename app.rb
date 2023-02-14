@@ -34,35 +34,11 @@ class App
   end
 
   def create_a_rental
-    puts 'Select a book from the following list by number'
-    list_all_books
-    # list all books
-    book_choice = user_input('Your selection:   ').to_i
-    book = @books[book_choice - 1]
-    puts book.title
-    puts 'Select a person from the following list by number (not id):'
-    list_all_people
-    person_choice = user_input('Your selection:   ').to_i
-    person = @people[person_choice - 1]
-    puts person.name
-    date = user_input('Date(YYYY-MM-DD):   ')
-    if book.nil? && person.nil?
-      puts 'Your request cannot be processed'
-    else
-      @rentals << Rental.new(date: date, person: person, book: book)
-      puts 'Rental added sucessfully'
-    end
+    CreateRental.new.create_a_rental(@books, @people, @rentals)
   end
 
   def list_all_rentals
-    list_all_people
-    person_id = user_input('ID of person:   ').to_i
-    puts 'Rentals: '
-    @rentals.each_with_index do |rental, index|
-      if rental.person.id == person_id
-        puts "#{index + 1} Book Title: #{rental.book.title}, Author: #{rental.person.name}"
-      end
-    end
+    ListRental.new.list_all_rentals(@rentals, @people)
   end
 
   def operation(input)
@@ -164,5 +140,40 @@ class CreateBook
     author = App.new.user_input('Author:  ')
     books << Book.new(title: title, author: author)
     puts 'Book created successfully'
+  end
+end
+
+class CreateRental
+    def create_a_rental(books, people, rentals)
+    puts 'Select a book from the following list by number'
+    ListBook.new.list_all_books(books)
+    book_choice = App.new.user_input('Your selection:   ').to_i
+    book = books[book_choice - 1]
+    puts book.title
+    puts 'Select a person from the following list by number (not id):'
+    ListPeople.new.list_all_people(people)
+    person_choice = App.new.user_input('Your selection:   ').to_i
+    person = people[person_choice - 1]
+    puts person.name
+    date = App.new.user_input('Date(YYYY-MM-DD):   ')
+    if book.nil? && person.nil?
+      puts 'Your request cannot be processed'
+    else
+      rentals << Rental.new(date: date, person: person, book: book)
+      puts 'Rental added sucessfully'
+    end
+  end
+end
+
+class ListRental
+  def list_all_rentals(rentals, people)
+    ListPeople.new.list_all_people(people)
+    person_id = App.new.user_input('ID of person:   ').to_i
+    puts 'Rentals: '
+    rentals.each_with_index do |rental, index|
+      if rental.person.id == person_id
+        puts "#{index + 1} Book Title: #{rental.book.title}, Author: #{rental.person.name}"
+      end
+    end
   end
 end
