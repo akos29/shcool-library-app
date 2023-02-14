@@ -16,19 +16,64 @@ class App
     print text
     gets.chomp
   end
-  
+
+  def validate_age(age)
+    age.is_a? Numeric 
+  end
+
   def list_all_books
-    ListBook.new.list_all_books(@books)
+    if @books.empty?
+      puts 'There is no book added'
+    else
+      @books.each_with_index do |book, index|
+        puts "(#{index + 1})  Title: #{book.title}, Title: #{book.author}"
+      end
+    end
   end
 
   def list_all_people
-    ListPeople.new.list_all_people(@people)
+    if @people.empty?
+      puts 'There is no people added'
+    else
+      @people.each_with_index do |person, index|
+        if person.is_a?(Student)
+          puts "(#{index + 1}): [Student] ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
+        else
+          puts "(#{index + 1}): [Teacher] ID: #{person.id}, Name #{person.name}, Age: #{person.age}"
+        end
+      end
+    end
   end
 
   def create_a_person
-    CreatePerson.new.create_a_person(@people)
+    puts 'Do you want to create a student(1) or a teacher (2)?'
+    choice = user_input('[Input the number]:  ')
+    case choice.to_i
+    when 1
+      age = user_input('Age:   ').to_i
+      name = user_input('Name:   ')
+      permission = user_input('Has parent permission? [Y/N]:  ')
+      permitted = %w[y Y].include?(permission)
+      if(validate_age(age))
+        @people << Student.new(age: age, name: name, parent_permission: permitted)
+        puts 'Person [Student] created successfully'
+      else
+        puts 'Person [Student] cannot be created'
+      end
+    when 2
+      age = user_input('Age:   ')
+      name = user_input('Name:  ')
+      specialization = user_input('Specialization:  ')
+      if(validate_age(age))
+        @people << Teacher.new(age: age, name: name, specialization: specialization)
+        puts 'Person [Teacher] created successfully'
+      else
+        puts 'Person [Teacher] cannot be created'
+      end
+    else
+      create_a_person
+    end
   end
-
   def create_a_book
     CreateBook.new.create_a_book(@books)
   end
@@ -82,32 +127,32 @@ class App
   end
 end
 
-class ListBook
-  def list_all_books(books)
-    if books.empty?
-      puts 'There is no book added'
-    else
-      books.each_with_index do |book, index|
-        puts "(#{index + 1})  Title: #{book.title}, Title: #{book.author}"
-      end
-    end
-  end
-end
+# class ListBook
+#   def list_all_books(books)
+#     if books.empty?
+#       puts 'There is no book added'
+#     else
+#       books.each_with_index do |book, index|
+#         puts "(#{index + 1})  Title: #{book.title}, Title: #{book.author}"
+#       end
+#     end
+#   end
+# end
 
 class ListPeople
-  def list_all_people(people)
-    if people.empty?
-      puts 'There is no people added'
-    else
-      people.each_with_index do |person, index|
-        if person.is_a?(Student)
-          puts "(#{index + 1}): [Student] ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
-        else
-          puts "(#{index + 1}): [Teacher] ID: #{person.id}, Name #{person.name}, Age: #{person.age}"
-        end
-      end
-    end
-  end
+  # def list_all_people(people)
+  #   if people.empty?
+  #     puts 'There is no people added'
+  #   else
+  #     people.each_with_index do |person, index|
+  #       if person.is_a?(Student)
+  #         puts "(#{index + 1}): [Student] ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
+  #       else
+  #         puts "(#{index + 1}): [Teacher] ID: #{person.id}, Name #{person.name}, Age: #{person.age}"
+  #       end
+  #     end
+  #   end
+  # end
 end
 
 class CreateList
@@ -117,28 +162,36 @@ class CreateList
   end
 end
 
+def validate_age(age)
+  age.number?
+end
+
 class CreatePerson < CreateList
-  def create_a_person(people)
-    puts 'Do you want to create a student(1) or a teacher (2)?'
-    choice = user_input('[Input the number]:  ')
-    case choice.to_i
-    when 1
-      age = user_input('Age:   ').to_i
-      name = user_input('Name:   ')
-      permission = user_input('Has parent permission? [Y/N]:  ')
-      permitted = %w[y Y].include?(permission)
-      people << Student.new(age: age, name: name, parent_permission: permitted)
-      puts 'Person [Student] created successfully'
-    when 2
-      age = user_input('Age:   ')
-      name = user_input('Name:  ')
-      specialization = user_input('Specialization:  ')
-      people << Teacher.new(age: age, name: name, specialization: specialization)
-      puts 'Person [Teacher] created successfully'
-    else
-      create_a_person
-    end
-  end
+  # def create_a_person(people)
+  #   puts 'Do you want to create a student(1) or a teacher (2)?'
+  #   choice = user_input('[Input the number]:  ')
+  #   case choice.to_i
+  #   when 1
+  #     age = user_input('Age:   ').to_i
+  #     name = user_input('Name:   ')
+  #     permission = user_input('Has parent permission? [Y/N]:  ')
+  #     permitted = %w[y Y].include?(permission)
+  #     if(validate_age)
+  #     people << Student.new(age: age, name: name, parent_permission: permitted)
+  #     puts 'Person [Student] created successfully'
+  #     else
+  #       puts 'Person [Student] cannot be created'
+  #     end
+  #   when 2
+  #     age = user_input('Age:   ')
+  #     name = user_input('Name:  ')
+  #     specialization = user_input('Specialization:  ')
+  #     people << Teacher.new(age: age, name: name, specialization: specialization)
+  #     puts 'Person [Teacher] created successfully'
+  #   else
+  #     create_a_person
+  #   end
+  # end
 end
 
 class CreateBook < CreateList
