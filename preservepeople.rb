@@ -1,27 +1,50 @@
 require 'json'
+require 'stringio'
 require './student'
 
-class PreservePeople
-  def initialize
-    @persons = []
-  end
 
+module PreservePeople
   def save_people(people)
+    students = []
+    teachers = []
+    students_path = 'people.json'
+    teachers_path = 'teachers.json'
+
+    return unless File.exist?(students_path) && File.exist?(teachers_path)
+
     people.map do |person|
-      @persons << if person.instance_of?(Teacher)
-                    { id: person.id, name: person.name, age: person.age, parent_permission: true,
+      case person
+      when Teacher
+        teachers << { id: person.id, name: person.name, age: person.age, parent_permission: true,
                       specialization: person.specialization }
-                  else
-                    { id: person.id, name: person.name, age: person.age, parent_permission: person.parent_permission }
-                  end
+      when Student
+        students << { id: person.id, name: person.name, age: person.age, parent_permission: person.parent_permission }
+      end
     end
 
-    # json =JSON.pretty_generate(persons)
+    File.write(students_path, JSON.pretty_generate(students))
+    File.write(teachers_path, JSON.pretty_generate(teachers))
+  end
 
-    File.write('people.json', JSON.pretty_generate(@persons), mode: 'w')
+  def fetch_people
+    data = []
+    students_path = 'people.json'
+    teachers_path = 'teachers.json'
 
-    p JSON.pretty_generate(@persons)
-    # file.puts JSON.pretty_generate(@persons)
-    # file.close
+    unless (File.exist?(students_path) && File.exist?(teachers_path)) && (File.read(students_path) != '' && File.read(teachers_path) != '')
+      return data
+    end
+
+    JSON.parse(File.read(teachers_path)).each do |teacher|
+      data << Teacher.new(id: teacher['id'], age: teacher['age'], name: teacher['name'],
+                          parent_permission: teacher['parent_permission'], specialization: teacher['specialization'])
+    end
+
+    JSON.parse(File.read(students_path)).each do |student|
+      data << Student.new(id: student['id'], age: student['age'], name: student['name'],
+                          parent_permission: student['parent_permission'])
+
+      data
+    end
   end
 end
