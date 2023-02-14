@@ -17,6 +17,10 @@ class App
     gets.chomp
   end
 
+  def validate_age(age)
+    age.is_a? Numeric
+  end
+
   def list_all_books
     if @books.empty?
       puts 'There is no book added'
@@ -50,17 +54,16 @@ class App
       name = user_input('Name:   ')
       permission = user_input('Has parent permission? [Y/N]:  ')
       permitted = %w[y Y].include?(permission)
-      @people << Student.new(age: age, name: name, parent_permission: permitted)
-      puts 'Person [Student] created successfully'
+      @people << Student.new(age: age, name: name, parent_permission: permitted) if validate_age(age)
     when 2
       age = user_input('Age:   ')
       name = user_input('Name:  ')
       specialization = user_input('Specialization:  ')
-      @people << Teacher.new(age: age, name: name, specialization: specialization)
-      puts 'Person [Teacher] created successfully'
+      @people << Teacher.new(age: age, name: name, specialization: specialization) if validate_age(age)
     else
       create_a_person
     end
+    puts 'Person created successfully'
   end
 
   def create_a_book
@@ -71,9 +74,15 @@ class App
   end
 
   def create_a_rental
-    puts 'Select a book from the following list by number'
+    if @people.empty?
+      puts 'Please add at least 1 person to continue'
+      create_a_person
+    end
+    if @books.empty?
+      puts 'Please add at least one book to continue'
+      create_a_book
+    end
     list_all_books
-    # list all books
     book_choice = user_input('Your selection:   ').to_i
     book = @books[book_choice - 1]
     puts book.title
@@ -83,12 +92,9 @@ class App
     person = @people[person_choice - 1]
     puts person.name
     date = user_input('Date(YYYY-MM-DD):   ')
-    if book.nil? && person.nil?
-      puts 'Your request cannot be processed'
-    else
-      @rentals << Rental.new(date: date, person: person, book: book)
-      puts 'Rental added sucessfully'
-    end
+
+    @rentals << Rental.new(date: date, person: person, book: book)
+    puts 'Rental added sucessfully'
   end
 
   def list_all_rentals
@@ -97,7 +103,7 @@ class App
     puts 'Rentals: '
     @rentals.each_with_index do |rental, index|
       if rental.person.id == person_id
-        puts "#{index + 1} Book Title: #{rental.book.title}, Author: #{rental.person.name}"
+        puts "#{index + 1} Book Title: #{rental.book.title}, Rented by: #{rental.person.name}"
       end
     end
   end
