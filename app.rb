@@ -112,7 +112,7 @@ class ListPeople
   end
 end
 
-class CreateList 
+class CreateList
   def create_a_person(people)
     puts 'Do you want to create a student(1) or a teacher (2)?'
     choice = user_input('[Input the number]:  ')
@@ -146,7 +146,7 @@ class CreateList
 end
 
 class CreateList
-    def create_a_rental(books, people, rentals)
+  def create_a_rental(books, people, rentals)
     puts 'Select a book from the following list by number'
     ListBook.new.list_all_books(books)
     book_choice = user_input('Your selection:   ').to_i
