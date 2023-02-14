@@ -158,6 +158,18 @@ Example:
 - Twitter: [kbson49](https://twitter.com/Kbson49)
 - LinkedIn: [Kibrewossen](https://www.linkedin.com/in/kibrewossen-yitbarek-bb587a18/)
 
+👤 Jonathan Munamire
+
+- GitHub: @jonathanmunamire
+- Twitter: @amanimunamire
+- LinkedIn: Jonathan Munamire
+
+👤 Jerome Jay
+
+- GitHub: [@githubhandle](https://github.com/187jjay187)
+- Twitter: [@twitterhandle](https://twitter.com/187jjay187)
+- LinkedIn: [LinkedIn](https://linkedin.com/in/jerome-osman-137605a4)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FUTURE FEATURES -->
