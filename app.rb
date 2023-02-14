@@ -4,7 +4,7 @@ require './teacher'
 require './classroom'
 require './rental'
 require './book'
-
+require_relative 'preservepeople'
 class App
   def initialize
     @people = []
@@ -54,16 +54,22 @@ class App
       name = user_input('Name:   ')
       permission = user_input('Has parent permission? [Y/N]:  ')
       permitted = %w[y Y].include?(permission)
-      @people << Student.new(age: age, name: name, parent_permission: permitted) if validate_age(age)
+      if validate_age(age)
+        @people << Student.new(id: Random.rand(1..1000), age: age, name: name, parent_permission: permitted)
+      end
     when 2
       age = user_input('Age:   ')
       name = user_input('Name:  ')
       specialization = user_input('Specialization:  ')
-      @people << Teacher.new(age: age, name: name, specialization: specialization) if validate_age(age)
+      if validate_age(age)
+        p @people << Teacher.new(id: Random.rand(1..1000), age: age, name: name, specialization: specialization,
+                                 parent_permission: true)
+      end
     else
       create_a_person
     end
     puts 'Person created successfully'
+    # PreservePeople.new.save_people(@people)
   end
 
   def create_a_book
