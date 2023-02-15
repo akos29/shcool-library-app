@@ -114,7 +114,7 @@ class App
     person = @people[person_choice - 1]
     puts person.name
     date = user_input('Date(YYYY-MM-DD):   ')
-
+    
     @rentals << Rental.new(date: date, person: person, book: book)
     puts 'Rental added sucessfully'
   end

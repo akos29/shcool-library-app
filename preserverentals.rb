@@ -8,7 +8,7 @@ module PreserveRentals
     return unless File.exist?(rentals_path)
 
     rentals.map do |rental|
-      rentals_array << { date: rental.date, person: rental.person.name, book: rental.book.title }
+      rentals_array << { date: rental.date, person: rental.person, book: rental.book }
     end
 
     File.write(rentals_path, JSON.generate(rentals_array))
@@ -21,7 +21,10 @@ module PreserveRentals
     return data if File.zero?(rentals_path)
 
     JSON.parse(File.read(rentals_path)).each do |rental|
+      p rental['person']
       data << Rental.new(date: rental['date'], person: rental['person'], book: rental['book'])
     end
+
+    data
   end
 end
