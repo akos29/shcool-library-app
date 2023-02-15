@@ -5,12 +5,15 @@ require './classroom'
 require './rental'
 require './book'
 require_relative 'preservepeople'
+require_relative 'preservebooks'
+
 class App
   include PreservePeople
+  include PreserveBooks
 
   def initialize
     @people = fetch_people
-    @books = []
+    @books = fetch_books
     @rentals = []
   end
 
@@ -164,5 +167,6 @@ class App
       operation(input)
     end
     save_people(@people)
+    save_books(@books)
   end
 end
