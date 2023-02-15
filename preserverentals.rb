@@ -8,10 +8,11 @@ module PreserveRentals
     return unless File.exist?(rentals_path)
 
     rentals.map do |rental|
+      pp rental.person
       rentals_array << { date: rental.date, person: rental.person, book: rental.book }
     end
 
-    File.write(rentals_path, JSON.generate(rentals_array))
+    File.write(rentals_path, JSON.pretty_generate(rentals_array))
   end
 
   def fetchrentals

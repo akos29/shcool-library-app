@@ -114,8 +114,7 @@ class App
     person = @people[person_choice - 1]
     puts person.name
     date = user_input('Date(YYYY-MM-DD):   ')
-    
-    @rentals << Rental.new(date: date, person: person, book: book)
+    @rentals << Rental.new(date: date, person: person.id, book: book.title)
     puts 'Rental added sucessfully'
   end
 
@@ -123,10 +122,9 @@ class App
     list_all_people
     person_id = user_input('ID of person:   ').to_i
     puts 'Rentals: '
+    name = @people.find { |p| p.id == person_id }
     @rentals.each_with_index do |rental, index|
-      if rental.person.id == person_id
-        puts "#{index + 1} Book Title: #{rental.book.title}, Rented by: #{rental.person.name}"
-      end
+      puts "#{index + 1} Book Title: #{rental.book}, Rented by: #{name.name}" if rental.person == person_id
     end
   end
 
