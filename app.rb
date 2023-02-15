@@ -5,13 +5,18 @@ require './classroom'
 require './rental'
 require './book'
 require_relative 'preservepeople'
+require_relative 'preservebooks'
+require_relative 'preserverentals'
+
 class App
   include PreservePeople
+  include PreserveBooks
+  include PreserveRentals
 
   def initialize
     @people = fetch_people
-    @books = []
-    @rentals = []
+    @books = fetch_books
+    @rentals = fetchrentals
   end
 
   def user_input(text)
@@ -109,8 +114,7 @@ class App
     person = @people[person_choice - 1]
     puts person.name
     date = user_input('Date(YYYY-MM-DD):   ')
-
-    @rentals << Rental.new(date: date, person: person, book: book)
+    @rentals << Rental.new(date: date, person: person.id, book: book.title)
     puts 'Rental added sucessfully'
   end
 
@@ -118,10 +122,9 @@ class App
     list_all_people
     person_id = user_input('ID of person:   ').to_i
     puts 'Rentals: '
+    name = @people.find { |p| p.id == person_id }
     @rentals.each_with_index do |rental, index|
-      if rental.person.id == person_id
-        puts "#{index + 1} Book Title: #{rental.book.title}, Rented by: #{rental.person.name}"
-      end
+      puts "#{index + 1} Book Title: #{rental.book}, Rented by: #{name.name}" if rental.person == person_id
     end
   end
 
@@ -164,5 +167,7 @@ class App
       operation(input)
     end
     save_people(@people)
+    save_books(@books)
+    saverentals(@rentals)
   end
 end
