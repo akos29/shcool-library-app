@@ -15,6 +15,17 @@ class App
     @people = fetch_people
     @books = fetch_books
     @rentals = []
+require_relative 'preserverentals'
+
+class App
+  include PreservePeople
+  include PreserveBooks
+  include PreserveRentals
+
+  def initialize
+    @people = fetch_people
+    @books = []
+    @rentals = fetchrentals
   end
 
   def user_input(text)
@@ -168,5 +179,6 @@ class App
     end
     save_people(@people)
     save_books(@books)
+    saverentals(@rentals)
   end
 end
