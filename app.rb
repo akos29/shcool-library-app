@@ -4,10 +4,12 @@ require './teacher'
 require './classroom'
 require './rental'
 require './book'
-
+require_relative 'preservepeople'
 class App
+  include PreservePeople
+
   def initialize
-    @people = []
+    @people = fetch_people
     @books = []
     @rentals = []
   end
@@ -33,12 +35,14 @@ class App
 
   def list_all_people
     if @people.empty?
-      puts 'There is no people added'
+      puts "There is no people added #{@people.class}"
     else
       @people.each_with_index do |person, index|
         if person.is_a?(Student)
           puts "(#{index + 1}): [Student] ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
-        else
+        end
+
+        if person.instance_of?(Teacher)
           puts "(#{index + 1}): [Teacher] ID: #{person.id}, Name #{person.name}, Age: #{person.age}"
         end
       end
@@ -48,22 +52,35 @@ class App
   def create_a_person
     puts 'Do you want to create a student(1) or a teacher (2)?'
     choice = user_input('[Input the number]:  ')
+    name = user_input('Name:   ')
+    age = user_input('Age:   ').to_i
     case choice.to_i
     when 1
-      age = user_input('Age:   ').to_i
-      name = user_input('Name:   ')
-      permission = user_input('Has parent permission? [Y/N]:  ')
-      permitted = %w[y Y].include?(permission)
-      @people << Student.new(age: age, name: name, parent_permission: permitted) if validate_age(age)
+      create_student(name, age)
     when 2
-      age = user_input('Age:   ')
-      name = user_input('Name:  ')
-      specialization = user_input('Specialization:  ')
-      @people << Teacher.new(age: age, name: name, specialization: specialization) if validate_age(age)
+      create_teacher(name, age)
     else
+      puts 'Please enter valid number(1 or 2)'
       create_a_person
     end
     puts 'Person created successfully'
+  end
+
+  def create_student(name, age)
+    permission = user_input('Has parent permission? [Y/N]:  ')
+    permitted = %w[y Y].include?(permission)
+    return unless validate_age(age)
+
+    @people << Student.new(id: Random.rand(1..1000), age: age, name: name, parent_permission: permitted)
+    puts "Student #{name} created successfully"
+  end
+
+  def create_teacher(name, age)
+    specialization = user_input('Specialization:  ')
+    return unless validate_age(age)
+
+    @people << Teacher.new(id: Random.rand(1..1000), age: age, name: name, specialization: specialization)
+    puts "Teacher #{name} created successfully"
   end
 
   def create_a_book
@@ -146,5 +163,6 @@ class App
 
       operation(input)
     end
+    save_people(@people)
   end
 end
