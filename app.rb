@@ -6,15 +6,6 @@ require './rental'
 require './book'
 require_relative 'preservepeople'
 require_relative 'preservebooks'
-
-class App
-  include PreservePeople
-  include PreserveBooks
-
-  def initialize
-    @people = fetch_people
-    @books = fetch_books
-    @rentals = []
 require_relative 'preserverentals'
 
 class App
@@ -24,7 +15,7 @@ class App
 
   def initialize
     @people = fetch_people
-    @books = []
+    @books = fetch_books
     @rentals = fetchrentals
   end
 
