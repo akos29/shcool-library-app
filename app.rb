@@ -38,9 +38,7 @@ class App
       puts "There is no people added #{@people.class}"
     else
       @people.each_with_index do |person, index|
-        p person
-
-        if person.is_a?(Teacher)
+        if person.is_a?(Student)
           puts "(#{index + 1}): [Student] ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
         end
 

@@ -1,3 +1,9 @@
 [
-
+  {
+    "id": 66,
+    "name": "Abebe",
+    "age": 32,
+    "parent_permission": true,
+    "specialization": "Computer"
+  }
 ]

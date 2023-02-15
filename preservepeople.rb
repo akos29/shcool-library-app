@@ -4,7 +4,7 @@ module PreservePeople
   def save_people(people)
     students = []
     teachers = []
-    students_path = 'people.json'
+    students_path = 'student.json'
     teachers_path = 'teachers.json'
 
     return unless File.exist?(students_path) && File.exist?(teachers_path)
@@ -19,13 +19,13 @@ module PreservePeople
       end
     end
 
-    File.write(students_path, JSON.pretty_generate(students))
+    File.write(students_path, JSON.generate(students))
     File.write(teachers_path, JSON.pretty_generate(teachers))
   end
 
   def fetch_people
     data = []
-    students_path = 'people.json'
+    students_path = 'student.json'
     teachers_path = 'teachers.json'
 
     unless (File.exist?(students_path) && File.exist?(teachers_path)) && (File.read(students_path) != '' && File.read(teachers_path) != '')
@@ -40,8 +40,8 @@ module PreservePeople
     JSON.parse(File.read(students_path)).each do |student|
       data << Student.new(id: student['id'], age: student['age'], name: student['name'],
                           parent_permission: student['parent_permission'])
-
-      pp data
     end
+
+    data
   end
 end
