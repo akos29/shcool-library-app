@@ -28,9 +28,7 @@ module PreservePeople
     students_path = 'student.json'
     teachers_path = 'teachers.json'
 
-    unless (File.exist?(students_path) && File.exist?(teachers_path)) && (File.read(students_path) != '' && File.read(teachers_path) != '')
-      return data
-    end
+    return data if File.zero?(students_path) && File.zero?(teachers_path)
 
     JSON.parse(File.read(teachers_path)).each do |teacher|
       data << Teacher.new(id: teacher['id'], age: teacher['age'], name: teacher['name'],
