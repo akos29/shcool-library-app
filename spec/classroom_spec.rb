@@ -1,6 +1,6 @@
 require './classroom'
 
-describe Classroom do
+RSpec.describe "Classroom" do
   context 'Testing Classroom class' do
     it 'should create a classroom with lable and empty array', positive: true do
       class_room = Classroom.new 'B121 F102'
@@ -11,19 +11,14 @@ describe Classroom do
 
     it 'should not create a classroom when lable is empty', negative: true do
       expect { Classroom.new }.to raise_error(ArgumentError)
-    end
+    end 
 
-    it 'should add rentals when add_rental method is called' do
-      # book = Book.new title: 'The Idiot', author: 'Fyodor Dostoevsky'
+    # it 'should add rentals when add_rental method is called' do
+    #   class_room = Classroom.new 'B117'
+      
+    #   class_room.add_student(["student1"])
 
-      # person = double('person')
-
-      # allow(person).to receive(:id) { 223 }
-
-      # book.add_rental('2023-01-01', person)
-
-      # # expect(book).to  be nil
-      # expect(book).to have_attributes(rentals: ['2023-01-01'])
-    end
+    #   expect(class_room).to have_attributes(students: ["student1"])
+    # end
   end
 end
