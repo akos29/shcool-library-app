@@ -9,12 +9,9 @@ describe Book do
       expect(book).to have_attributes(author: 'Fyodor Dostoevsky')
     end
 
-    # it "should detect when Title and Author are empty" do
-    #   book = Book.new '', ''
-
-    #   expect(book).to  be nil
-    #   # expect(book).to have_attributes(author: '') be false
-    # end
+    it 'should not create a book without Title or Author' do
+      expect { Book.new 'The Idiot' }.to raise_error(ArgumentError)
+    end
 
     it 'should add rentals when add_rental method is called' do
       book = Book.new title: 'The Idiot', author: 'Fyodor Dostoevsky'
