@@ -13,12 +13,5 @@ RSpec.describe 'Classroom' do
       expect { Classroom.new }.to raise_error(ArgumentError)
     end
 
-    # it 'should add rentals when add_rental method is called' do
-    #   class_room = Classroom.new 'B117'
-
-    #   class_room.add_student(["student1"])
-
-    #   expect(class_room).to have_attributes(students: ["student1"])
-    # end
   end
 end
